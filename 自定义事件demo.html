@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="div"></div>
+
+<script>
+
+
+    addEvent(div,'点击',function () {
+        alert('点击')
+    })
+
+
+
+
+    //绑定器 触发器
+    function addEvent(obj,eventName,fn) {
+
+        obj.event = obj.event ||{};
+
+        obj.event[eventName] = obj.event[eventName] || [];
+
+        obj.event[eventName].push(fn);
+
+    }
+
+    function trigger(obj,eventName) {
+
+        if(!obj.event[eventName]) return;
+
+        obj.event[eventName].forEach((e,i)=>{
+            e.call(obj);
+        })
+    }
+
+
+
+    div.onclick = function () {
+        trigger(this,'点击')
+    }
+
+
+
+
+</script>
+
+</body>
+</html>
