@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: plum;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<script>
+    
+    function fn(arr){
+        alert(arr);
+    }
+
+    div1.onclick = function(){
+        var newscript = document.createElement('script');
+        newscript.src = 'http://localhost/teacher/kejian/2017-7-24/2017-10-25/php/qq.js';
+        document.querySelector('head').appendChild(newscript);
+        setTimeout(function(){
+            newscript.remove();
+        },1000)
+    }
+
+</script>
+    
+</body>
+</html>
