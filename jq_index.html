@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="jquery.js"></script>
+    <script type="text/javascript">
+        // $(document).ready(function(){  //当文档完成加载时,运行jQuery
+        //     $("button").click(function(){
+        //     // $("p#test").hide();
+        //     $("ul li:first").css("background-color","yellow");
+        //     });
+        // });
+
+        // $(document).ready(function(){
+        //     $('p').click(function(){
+        //         $(this).hide();
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $("button").click(function(){
+        //         $(".box1").hide();
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $(".hide").click(function(){
+        //         $("p").hide(1000);
+        //     })
+        //     $(".show").click(function(){
+        //         $("p").show(1000);
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $("button").click(function(){
+        //         $("p").toggle(1000);
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $("button").click(function(){
+        //         $("#div1").fadeIn(2000);
+        //         $("#div2").fadeIn(500);
+        //         $("#div3").fadeIn(4000);
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $("button").click(function(){
+        //         $("#div1").fadeOut(2000);
+        //         $("#div2").fadeOut(1000);
+        //         $("#div3").fadeOut(500);
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $("button").click(function(){
+        //         $("#div1").fadeToggle(2000);
+        //         $("#div2").fadeToggle(2000);
+        //         $("#div3").fadeToggle(2000);
+        //     })
+        // })
+
+        // $(document).ready(function(){
+        //     $("button").click(function(){
+        //         $("#div1").fadeTo("fast",0.2);
+        //         $("#div2").fadeTo("fast",0.2);
+        //         $("#div3").fadeTo("fast",0.2);
+        //     })
+        // })
+
+        $(document).ready(function(){
+            $("button").click(function(){
+                $(".slideD_box").slideDown("slow");
+            })
+        })
+
+
+    </script>
+    <title>Document</title>
+    <style>
+        li{
+            width: 300px;
+            height: 30px;
+            border: 1px solid red;
+        }
+
+        .box1{
+            border: 1px solid #fff;
+            background-color: #ccc;
+        }
+
+        #div1,#div2,#div3{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* display: none; */
+        }
+        #div2{
+            background-color:blueviolet;
+        }
+        #div3{
+            background-color: yellow;
+        }
+
+        .slideD_box{
+            display: none;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <!-- <h2>11This is a heading</h2>
+    <p class="test">22This is a paragraph.</p>
+    <p id="test">33This is another paragraph.</p>
+    <p id="test">44This is another paragraph.</p>
+    <button type="button">Click me</button> -->
+
+    <!-- <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul> 
+    <button type="button">Click me</button> -->
+
+    <!-- <p>隐藏1</p>
+    <p>隐藏2</p>
+    <p>隐藏3</p> -->
+
+    <!-- <h3>我是第一个盒子</h3>
+    <div class="box1">
+        <button>隐藏</button>
+        <p>我是第一个文字</p>
+    </div> -->
+
+    <!-- <p>如果点击“隐藏”按钮，我就会消失。</p>
+    <button class="hide">隐藏</button>
+    <button class="show">显示</button> -->
+
+    <!-- <p>隐藏/显示的切换</p>
+    <button class="hide">切换</button> -->
+
+    <!-- <p>带有不同参数的 fadeIn() 方法</p>
+    <button>点击这里，使三个矩形淡入</button>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div> -->
+
+    <!-- <p>带有不同参数的 fadeOut() 方法</p>
+    <button>点击这里，使三个矩形淡出</button>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div> -->
+
+    <!-- <p>带有不同参数的 fadeToggle() 方法</p>
+    <button>点击，使三个矩形淡出的淡入,淡入的淡出</button>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div> -->
+
+    <!-- <p>带有不同参数的 fadeTo() 方法</p>
+    <button>点击这里，改变透明度</button>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div> -->
+
+    <div class="slideD_box">
+        <p>jQuery slideDown() 方法用于向下滑动元素 
+        </p>
+    </div>
+    <button>请点击这里</button>
+
+
+    
+</body>
+
+</html>
