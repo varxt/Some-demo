@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        .wrap{
+            width: 1000px;
+            height: 600px;
+            margin: 10px auto;
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            padding: 20px 50px;
+        }
+        .type{
+            width: 120px;
+            height: 700px;
+            float: left;
+        }
+        .type a{
+            color: #fff;
+            height: 100px;
+            display: block;
+            font-size: 20px;
+        }
+        .type a.active{
+            color: red;
+        }
+        ul{
+            border-left:1px solid #fff;
+            width: 840px;
+            height: 300px;
+            float: left;
+            padding-left: 20px;
+        }
+        ul a{
+            color: #fff;
+        }
+        li{
+            height: 60px;
+            padding-top: 20px;
+            border-bottom: 1px dashed #000;
+        }
+        .num{
+            float: left;
+            font-size: 30px;
+            line-height: 40px;
+            border-right: 1px solid #0f1115;
+            margin-right: 20px;
+            padding-right: 20px;
+        }
+        .info{
+            float: left;
+            width: 460px;
+            line-height: 40px;
+        }
+        .list a span:nth-of-type(3){
+            float: right;
+        }
+        .list a{
+            width: 100%;
+            height: 60px;
+            display: block;
+        }
+        #page a{
+            color: #fff;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+
+    <div class="type">
+    </div>
+    <ul>
+    </ul>
+    <div id="page">
+    </div>
+
+</div>
+
+<script src="json.js"></script>
+<script src="MTween.js"></script>
+<script>
+
+    /**
+     * 需求:
+     *      1.侧边栏显示两大分类 选中列表飘红
+     *      2.右边显示内容的根据左边的类型渲染
+     *      3.分页显示数据，分别提示第一页，最后一页
+     */
+    // 拿 地址栏 hash
+    var hash = window.location.hash.slice(1);
+
+
+    // 如果不存在hash 默认显示第 1 页
+    if(!hash){
+        hash = 1;
+    }
+
+    // 获取地址栏  通过searchToJson转为json的方法 把地址栏转为json
+    var content = searchToJson(window.location.search);
+
+    // console.log(content)
+
+
+    // 如果没有设置类型   默认显示 school
+    if(!content.type){
+        content.type = 'school';
+    }
+
+    //根据列表类型  来切换显示的数据 用一个变量存起来
+    var contentList = data[content.type];  
+
+    // console.log(contentList)
+
+
+    /*****1.侧边栏显示两大分类**************************************************************/
+
+    //把侧边栏的数据    用一个变量存起来
+    var list = data.list;
+    // console.log(list)
+
+    //获取元素   左侧列表
+    var type = document.querySelector('.type');
+
+    //往页面渲染列表    用拼接字符串的方法
+    var html = '';
+
+    for(var i=0;i<list.length;i++){
+
+        //飘红处理
+        var class_name = '';
+
+        //如果地址栏的type 为 左侧列表类型 就加上 active样式
+        if(content.type==list[i].type){
+            class_name = 'active';
+        }
+
+        //拼接列表中的 a   左边侧边栏
+        // html += '<a class="'+class_name+'" href="?type='+list[i].type+'">'+list[i].name+'</a>';
+        html += `<a class="${class_name}" href="?type=${list[i].type}">${list[i].name}</a>`;
+
+    }
+
+    //放到页面上
+    type.innerHTML = html;
+
+    /*******3.分页显示数据，分别提示第一页，最后一页*************************************/
+
+    //用变量存储   每页显示的条数
+    var pageNum = 2;
+
+    //用变量存储   总条数  看看当前的数据的长度
+    var pageCount = contentList.length;
+
+    //用变量存储   计算的页数  向上取证，因为5/2 最后一页为1条 也要显示 所以为 向上取证
+    var num = Math.ceil(pageCount/pageNum);
+
+    //获取元素     渲染页码大盒子
+    var pageBox = document.querySelector('#page');
+    
+    //用拼接字符串的方法 渲染数据
+    html = '';
+
+    for(var i=0;i<num;i++){
+        // html += '<a href="?type='+content.type+'&a='+i+'#'+(i+1)+'">'+(i+1)+'</a>';
+        html += `<a href="?type=${content.type}&a=${i}#${i+1}">${i+1}</a>`;
+    }
+
+    //放到页面上
+    pageBox.innerHTML = html;
+
+    /********************************************************************************/
+    //上一页
+    //创建 a
+    var prev = document.createElement('a');  
+    // a 的内容
+    prev.innerHTML = '&lt;';
+    // a 的事件
+    prev.onclick = function(){
+
+        //获取地址栏信息 去掉# 
+        var arr = window.location.href.split('#');
+
+        hash--;
+        // 3,2,1,0
+        if(hash<1){
+            alert('已经是第一页');
+            hash = 1;
+        }
+
+        //获取一个随机时间
+        content.a = new Date().getTime();
+
+        //从?开始   //不太懂 地址栏的操作？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+        var str = '?';
+        for(var key in content){
+            str += key +'='+content[key]+'&';
+        }
+        str = str.slice(0,-1);
+        str += '#'+hash;
+
+        window.location.href = arr[0]+str;
+
+        //阻止默认行为
+        return false;
+    }
+    //把元素插入到页面
+    pageBox.insertBefore(prev,pageBox.firstElementChild);
+
+
+    //下一页
+    var next = document.createElement('a');
+    next.innerHTML = '&gt;';
+
+    next.onclick = function(){
+        var arr = window.location.href.split('?');
+
+        hash++;
+
+        if(hash>num){
+            alert('已经是最后一页');
+            hash = num;
+        }
+
+
+        //获取一个随机时间
+        content.a = new Date().getTime();
+
+        //从 ？ 开始
+        var str = '?';
+        for(var key in content){
+            str += key + '='+content[key]+'&';
+        }
+        str = str.slice(0,-1);
+        str += '#'+hash;
+
+        window.location.href = arr[0]+str;
+
+        return false;
+
+
+    }
+
+    pageBox.appendChild(next);
+
+
+    /******** 2.右边显示内容的根据左边的类型渲染****************************************************/
+
+    //获取元素
+    var ul = document.querySelector('ul'); 
+
+    //不太懂？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+    var conList = contentList.slice((hash-1)*pageNum,hash*pageNum);
+
+    console.log(conList)
+
+    //往页面渲染内容
+    html = '';
+    for(var i=0;i<conList.length;i++){
+
+        //如果小于10 比如01 为0+1
+        if(contentList[i].id < 10) contentList[i].id = '0'+ contentList[i].id;
+
+        //  拼接html  每一个li
+        //  a链接是为了匹配后面的 比如  /content.html?type=sociology#0
+        html += `<li>
+            <a href="content.html?type=${content.type}#${i+pageNum*(hash-1)}">
+                <span class="num">${conList[i].id}</span>
+                <span class="info">${conList[i].title}</span>
+                <span>${conList[i].time}<br>查看详情</span>
+            </a>
+            </li>`
+    }
+
+    //把html给 ul
+    ul.innerHTML = html;
+
+
+</script>
+
+
+
+</body>
+</html>
